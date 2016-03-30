@@ -6,12 +6,12 @@ import javax.swing.*;
 
 public class JPanelLogin extends JPanel{
 	private static final long serialVersionUID = 1L;
-	/*±¾ÀàÓÃÓÚÓÎÏ·µÄµÇÂ½½çÃæ
-	 * ÊÇÊ×ÒªÈÎÎñ
+	/*æœ¬ç±»ç”¨äºæ¸¸æˆçš„ç™»é™†ç•Œé¢
+	 * æ˜¯é¦–è¦ä»»åŠ¡
 	 */
 	
 	private JMainFrame jMainFrame;
-	private JButton[] buttons;
+	private JButton[] buttons;//åŒ…æ‹¬å³ä¸Šè§’çš„ä¸‰ä¸ªæŒ‰é’®ï¼Œåˆ†åˆ«ä¸ºé™éŸ³ï¼Œå¸®åŠ©ï¼Œé€€å‡º
 
 	
 	public JPanelLogin(JMainFrame jframe){
