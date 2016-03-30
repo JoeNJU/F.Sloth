@@ -7,18 +7,21 @@ import javax.swing.*;
 public class JPanelSetting extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	/*±¾ÀàÓÃÓÚÓÎÏ·µÄÉèÖÃ½çÃæ
-	 * ÊÇÊ×ÒªÈÎÎñ
+	public static final int WIDTH = 470;
+	public static final int HIGHT = 430;
+	/*æœ¬ç±»ç”¨äºæ¸¸æˆçš„è®¾ç½®ç•Œé¢
+	 * æ˜¯é¦–è¦ä»»åŠ¡
+	 * è®¾ç½® æˆå°± å…³äºæˆ‘ä»¬ é¢æ¿:ä½ç½®:X:275 Y:256å¤§å°:W:470 H:430
 	 */
 	
 	private JMainFrame jMainFrame;
-	private JLabel[] labels;
+	private JButton[] buttons;
 
 	
 	public JPanelSetting(JMainFrame jframe){
 		this.jMainFrame = jframe;
 		this.setLayout(null);
-		this.setBounds(0, 0, JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT);
+		this.setBounds(0, 0, WIDTH,HIGHT);
 		this.setVisible(true);
 		jMainFrame.setDragable(this);
 		this.initial();
