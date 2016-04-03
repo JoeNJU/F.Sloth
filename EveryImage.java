@@ -1,9 +1,10 @@
 package ui;
 
 public class EveryImage {
-	/*ËùÓĞµÄ±äÁ¿ºÍ·½·¨¶¼ÏŞ¶¨Îªpublic
-	 * ËùÓĞµÄÍ¼Æ¬ÒıÓÃ¶¼À´×ÔÓÚ´Ë
-	 * Í¼Æ¬ÃüÃû¹æÔò£ºIMG_·ÖÀà_Ãû×Ö
+	/*æ‰€æœ‰çš„å˜é‡å’Œæ–¹æ³•éƒ½é™å®šä¸ºpublic
+	 * æ‰€æœ‰çš„å›¾ç‰‡å¼•ç”¨éƒ½æ¥è‡ªäºæ­¤
+	 * å›¾ç‰‡å‘½åè§„åˆ™ï¼šIMG_åˆ†ç±»_åå­—
 	 */
+	 public  Image CURSOR = new ImageIcon("graphics/component/cursor.png").getImage();
 
 }
