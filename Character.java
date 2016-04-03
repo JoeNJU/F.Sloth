@@ -1,18 +1,19 @@
 package game;
 
 import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 
 
-public class Character extends JPanel{
+public class Character extends JPanel implements KeyListener{
 	
 	private static final long serialVersionUID = 1L;
 	//String name;
+	private int family;
     private int rank;//宝宝为0，爸爸为1，妈妈为2
     private int score = 0;
     private Point location;//实际坐标
-    private int direction;
     private int vision;
     private int activity = 7;//体力
     private Point[] homeLoc;
@@ -20,8 +21,10 @@ public class Character extends JPanel{
     private int y;
     private boolean hidden = false;
     private boolean alive = true;
+    private boolean isMove = false;
     
-    Character(int rank){
+    Character(int family, int rank){
+    	this.family = family;
     	this.rank = rank;
     	this.initial();
     }
@@ -49,23 +52,7 @@ public class Character extends JPanel{
 		if(hidden){
 			//隐身图案
 		}else{
-			switch(direction){
-	    	case 0:
-	    		
-	    		break;
-	    	case 1:
-	    		
-	    		break;
-	    	case 2:
-	    		
-	    		break;
-	    	case 3:
-	    		
-	    		break;
-	    	default:
-	    		break;
-	    	}
-			//原本图案
+			
 		}
 	
 	}
@@ -108,24 +95,39 @@ public class Character extends JPanel{
     	this.repaint();
     }
     
-    void move(int direction){
-    	this.direction = direction;
-    	switch(direction){
-    	case 0:
-    		
-    		break;
-    	case 1:
-    		
-    		break;
-    	case 2:
-    		
-    		break;
-    	case 3:
-    		
-    		break;
-    	default:
-    		break;
-    	}
-    }//0左，1右，2上，3下
+    void move(){
+    	isMove = true;
+    }
+    
+    void stopMove(){
+    	isMove = false;
+    }
+    
+    @Override
+	public void keyPressed(KeyEvent arg0) {
+		if(isMove){
+			switch(arg0.getKeyCode()){
+			case KeyEvent.VK_LEFT:
+				
+				break;
+			case KeyEvent.VK_RIGHT:
+				
+				break;
+			case KeyEvent.VK_UP:
+				
+				break;
+			case KeyEvent.VK_DOWN:
+				
+				break;
+			}
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {}
 
 }
