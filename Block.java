@@ -7,7 +7,6 @@ import javax.swing.*;
 public class Block{
 	
 	private static final long serialVersionUID = 1L;
-	//Ã¿Ò»¸ö¸ñ×Ó¶¼ÊÇÒ»¸ö°´Å¥
 	private boolean occupied = false;
 	private Character person;
 	private int family;
@@ -23,7 +22,7 @@ public class Block{
 	
 	void setPerson(Character person){
 		this.person = person;
-	}//ÈËÕ¾ÔÚÉÏÃæ£¬µ«ÊÇ²»Ò»¶¨ÒÑ¾­Õ¼Áì
+	}//äººç«™åœ¨ä¸Šé¢ï¼Œä½†æ˜¯ä¸ä¸€å®šå·²ç»å é¢†
 	
 	void setHome(int family){
 		isHome = true;
@@ -44,7 +43,7 @@ public class Block{
 			occupied = true;
 			this.family = family;
 		}
-	}//±»Õ¼Áì£¬µ«ÊÇ²»Ò»¶¨ÓĞÈË
+	}//è¢«å é¢†ï¼Œä½†æ˜¯ä¸ä¸€å®šæœ‰äºº
 	
 	
 	
