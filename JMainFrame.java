@@ -17,7 +17,7 @@ public class JMainFrame extends JFrame{
 	public static final int JFRAME_WIDTH=1024;
 	public static final int JFRAME_HIGHT=768;
 	/**
-	 * Õû¸öÓÎÏ·µÄFrame£¬
+	 * æ•´ä¸ªæ¸¸æˆçš„Frameï¼Œ
 	 */
 	
 	private int locationX;
@@ -29,19 +29,20 @@ public class JMainFrame extends JFrame{
 	
 	public JMainFrame() {
 		everyImage=new EveryImage();
-		this.setTitle("ÆÌµØ°å");
+		this.setTitle("é“ºåœ°æ¿");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(JFRAME_WIDTH, JFRAME_HIGHT);
 		this.setResizable(false);
-		//ÏÂÃæÎª¾ÓÖĞ
-        Toolkit toolkit=Toolkit.getDefaultToolkit();
-        Dimension screen=toolkit.getScreenSize();
-        this.locationX=(screen.width -this.getWidth())/2;
-        this.locationY=(screen.height -this.getHeight())/2;       
-	    this.setLocation(this.locationX,this.locationY);
-	    //¾ÓÖĞÍê±Ï
-	    //this.setUndecorated(true);//Ê§È¥¶¥ÉÏ¹Ø±ÕºÍ×îĞ¡»¯°´Å¥
+		//ä¸‹é¢ä¸ºå±…ä¸­
+        	Toolkit toolkit=Toolkit.getDefaultToolkit();
+        	Dimension screen=toolkit.getScreenSize();
+        	this.locationX=(screen.width -this.getWidth())/2;
+		this.locationY=(screen.height -this.getHeight())/2;       
+		this.setLocation(this.locationX,this.locationY);
+	    //å±…ä¸­å®Œæ¯•
+	    	setCursor(Toolkit.getDefaultToolkit().createCustomCursor(everyImage.CURSOR, new Point(), null));
+	    //this.setUndecorated(true);//å¤±å»é¡¶ä¸Šå…³é—­å’Œæœ€å°åŒ–æŒ‰é’®
 	    //this.setVisible(true);
 	    
 	    this.setVisible(true);
@@ -54,20 +55,20 @@ public class JMainFrame extends JFrame{
 	private JMainFrame jMainFrame = this;
 	
 	/**
-	 * ÍÏ¶¯panel¿ÉÒÔÒÆ¶¯´°ÌåÎ»ÖÃ
+	 * æ‹–åŠ¨panelå¯ä»¥ç§»åŠ¨çª—ä½“ä½ç½®
 	 */
 	
 	 public void setDragable(JPanel panel) {
 	    	panel.addMouseListener(new MouseAdapter() {
 	            public void mouseReleased(MouseEvent e) {
 	               isDragged = false;
-	               //TODO ¸ü»»Êó±êÍ¼°¸
+	               //TODO æ›´æ¢é¼ æ ‡å›¾æ¡ˆ
 	            //   jFrame.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	            }
 	            public void mousePressed(MouseEvent e) {
 	               tmp = new Point(e.getX(), e.getY());
 	               isDragged = true;
-	             //TODO ¸ü»»Êó±êÍ¼°¸
+	             //TODO æ›´æ¢é¼ æ ‡å›¾æ¡ˆ
 	             //  jFrame.setCursor(new Cursor(Cursor.MOVE_CURSOR));
 	            }
 	        });
