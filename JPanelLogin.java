@@ -1,113 +1,114 @@
-package ui;
-/*¹²ÓĞËÄ¸öÖ÷°´Å¥£¬ºÍÒ»¸ö±êÌâ£¬ÓÒÉÏ½ÇÈı¸öĞ¡°´Å¥£¬
-µã»÷ÈÎºÎÒ»¸öÖ÷°´Å¥£¬±êÌâÏòÉÏ·É×ß£¬°´Å¥ÏòÏÂ·É×ß
-Êó±êÒÆµ½°´Å¥ÉÏ»»Í¼£¨ÏÈÓÃ¸ÄÑÕÉ«´úÌæ£©
-µÚÒ»¸ö°´Å¥:W:360 H:68 X: 335 Y:315  ¿Õ°×¸ß27
-£¨±êÌâºÍÓÒÉÏ½ÇĞ¡°´Å¥ÏÈËæ±ã·Å£©
 
-¼¼Êõ½¨Òé£º
-1. ±êÌâÓÃJLabel
-2. °´Å¥×é0123·Ö±ğ¶ÔÓ¦Ö÷°´Å¥£¬456¶ÔÓ¦Ğ¡°´Å¥
-3. ÔÚËùÓĞµÄButtonListenerÊÂ¼şÖĞÓÃifÀ´È·¶¨ÄÄ¸ö°´Å¥£¨¿ÉÒÔÓÃÈ«¾Ö±äÁ¿i£©
-4. ·É×ßĞ§¹û½¨ÒéÓÃ×é¼şµÄsetLocation£¬ÀûÓÃĞÂÏß³Ì£¬repaint¡£
-5. Ò»µ©·É³ö¾ÍremoveÇ°ËÄ¸ö°´Å¥
-²Î¿¼GomokuÀïµÄJPanelLoginºÍJPanelLoginNext1µÄÊµÏÖ·½Ê½£¨ËüÊÇ·ÉÈë£¬ÎÒÃÇÊÇ·É³ö£©
-¾ØĞÎ1:W:360 H:68 X:335 Y:315
-¾ØĞÎ2:W:360 H:68 X:335 Y:410
-¾ØĞÎ3:W:360 H:68 X:335 Y:505
-¾ØĞÎ4:W:360 H:68 X:335 Y:600*/
+package ui;
+/*å…±æœ‰å››ä¸ªä¸»æŒ‰é’®ï¼Œå’Œä¸€ä¸ªæ ‡é¢˜ï¼Œå³ä¸Šè§’ä¸‰ä¸ªå°æŒ‰é’®ï¼Œ
+ç‚¹å‡»ä»»ä½•ä¸€ä¸ªä¸»æŒ‰é’®ï¼Œæ ‡é¢˜å‘ä¸Šé£èµ°ï¼ŒæŒ‰é’®å‘ä¸‹é£èµ°
+é¼ æ ‡ç§»åˆ°æŒ‰é’®ä¸Šæ¢å›¾ï¼ˆå…ˆç”¨æ”¹é¢œè‰²ä»£æ›¿ï¼‰
+ç¬¬ä¸€ä¸ªæŒ‰é’®:W:360 H:68 X: 335 Y:315  ç©ºç™½é«˜27
+ï¼ˆæ ‡é¢˜å’Œå³ä¸Šè§’å°æŒ‰é’®å…ˆéšä¾¿æ”¾ï¼‰
+
+æŠ€æœ¯å»ºè®®ï¼š
+1. æ ‡é¢˜ç”¨JLabel
+2. æŒ‰é’®ç»„0123åˆ†åˆ«å¯¹åº”ä¸»æŒ‰é’®ï¼Œ456å¯¹åº”å°æŒ‰é’®
+3. åœ¨æ‰€æœ‰çš„ButtonListeneräº‹ä»¶ä¸­ç”¨ifæ¥ç¡®å®šå“ªä¸ªæŒ‰é’®ï¼ˆå¯ä»¥ç”¨å…¨å±€å˜é‡iï¼‰
+4. é£èµ°æ•ˆæœå»ºè®®ç”¨ç»„ä»¶çš„setLocationï¼Œåˆ©ç”¨æ–°çº¿ç¨‹ï¼Œrepaintã€‚
+5. ä¸€æ—¦é£å‡ºå°±removeå‰å››ä¸ªæŒ‰é’®
+å‚è€ƒGomokué‡Œçš„JPanelLoginå’ŒJPanelLoginNext1çš„å®ç°æ–¹å¼ï¼ˆå®ƒæ˜¯é£å…¥ï¼Œæˆ‘ä»¬æ˜¯é£å‡ºï¼‰
+çŸ©å½¢1:W:360 H:68 X:335 Y:315
+çŸ©å½¢2:W:360 H:68 X:335 Y:410
+çŸ©å½¢3:W:360 H:68 X:335 Y:505
+çŸ©å½¢4:W:360 H:68 X:335 Y:600*/
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+
+import ui.JPanelLogin.bgThread;
 
 
 public class JPanelLogin extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private JMainFrame jMainFrame;
-	private static int i;          //È«¾Ö±äÁ¿iÀ´È·¶¨°´Å¥
+	private static int i;          //å…¨å±€å˜é‡iæ¥ç¡®å®šæŒ‰é’®
 	private boolean dark;
 	private JButton[] buttons;
 	private JLabel title;
-	private static final int JBUTTON_WIDTH=360;      //ËÄ¸ö°´Å¥µÄ´óĞ¡
+	private int bgIndex;
+	private static final int JBUTTON_WIDTH=360;      //å››ä¸ªæŒ‰é’®çš„å¤§å°
 	private static final int JBUTTON_HIGHT=68;
-	private static final int JLABLE_WIDTH=430;       //±êÌâµÄ´óĞ¡
+	private static final int JLABLE_WIDTH=430;       //æ ‡é¢˜çš„å¤§å°
 	private static final int JLABLE_HIGHT=80;
-	private static final int JBUTTON2_WIDTH=20;      //Èı¸öĞ¡°´Å¥µÄ´óĞ¡
+	private static final int JBUTTON2_WIDTH=20;      //ä¸‰ä¸ªå°æŒ‰é’®çš„å¤§å°
 	private static final int JBUTTON2_HIGHT=20;
-	private Point[] buttonPoint=new Point[]{new Point(1037,142),new Point(1037,234),new Point(1037,324),new Point(1037,414),new Point(933,0),new Point(981,0)};
-	private Point titlePoint=new Point(300,200);
+	private Point[] buttonPoint=new Point[]{new Point(335, 410),new Point(335,505),new Point(315,600),new Point(900,20),new Point(935,20),new Point(970,20)};
+	private Point titlePoint=new Point(335, 315);
 	
 	public JPanelLogin(JMainFrame jframe){
 		this.jMainFrame=jframe;
-		this.setLayout(null);
+		setLayout(null);
 		this.setBounds(0, 0, JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT);
 		this.setVisible(true);
-		setLayout(null);
 		this.buttons=new JButton[]{
-				new JButton("µÚÒ»¸ö"),
-				new JButton("µÚ¶ş¸ö"),
-				new JButton("µÚÈı¸ö"),
-				new JButton("µÚËÄ¸ö"),
-				new JButton("¾²Òô"),
-				new JButton("°ïÖú"),  
-				new JButton("ÍË³ö")
+				new JButton("ç¬¬ä¸€ä¸ª"),
+				new JButton("ç¬¬äºŒä¸ª"),
+				new JButton("ç¬¬ä¸‰ä¸ª"),
+				new JButton("ç¬¬å››ä¸ª"),
+				new JButton("é™éŸ³"),
+				new JButton("å¸®åŠ©"),  
+				new JButton("é€€å‡º")
 		};
-		this.buttons[0].setBounds(335, 315, 360, 68);
-		this.buttons[1].setBounds(335, 410, 360, 68);
-		this.buttons[2].setBounds(335, 505, 360, 68);
-		this.buttons[3].setBounds(335, 600, 360, 68);
-		this.buttons[4].setBounds(900, 750, 20, 20);
-		this.buttons[5].setBounds(935, 750, 20, 20);
-		this.buttons[6].setBounds(970, 750, 20, 20);
 		
-		title.setBounds(300, 720, 430, 80);
 		this.title=new JLabel();
 		this.dark=false;
-		this.initial();
+		initial();
+		Thread start=new Thread();
+		start.start();
 		
+		
+
+	}
+	
+	public void initial(){
+		buttonListener buttonListener=new buttonListener(i,this);
+		
+		for(int i=0;i<=6;i++){
+		this.add(buttons[i]);
+		this.buttons[i].setBounds(buttonPoint[i].x, buttonPoint[i].y, 360, 68);
+		buttons[i].addMouseListener(buttonListener);
+		buttons[i].addActionListener(buttonListener);
+		
+		}
+		
+		
+		JLabel title=new JLabel();
+		this.add(title);
+		this.title.setBounds(300, 720, 430, 80);
 
 	}
 	
 	@Override
     public void paintComponent(Graphics g){
 		if(!dark){
-		Graphics2D g2d=(Graphics2D) g;
-		g2d.drawRect(0, 0, JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT);
-		g2d.setPaint(Color.green);
-		g2d.fillRect(335, 315, JBUTTON_WIDTH, JBUTTON_HIGHT);
-		g2d.fillRect(335, 410, JBUTTON_WIDTH, JBUTTON_HIGHT);
-		g2d.fillRect(335, 505, JBUTTON_WIDTH, JBUTTON_HIGHT);
-		g2d.fillRect(335, 600, JBUTTON_WIDTH, JBUTTON_HIGHT);
-		g2d.fillRect(300, 720, JLABLE_WIDTH, JLABLE_HIGHT);
-		g2d.fillRect(900, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
-		g2d.fillRect(935, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
-		g2d.fillRect(970, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
+
+		g.drawRect(0, 0, JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT);
+		g.drawRect(335, 315, JBUTTON_WIDTH, JBUTTON_HIGHT);
+		g.drawRect(335, 410, JBUTTON_WIDTH, JBUTTON_HIGHT);
+		g.drawRect(335, 505, JBUTTON_WIDTH, JBUTTON_HIGHT);
+		g.drawRect(335, 600, JBUTTON_WIDTH, JBUTTON_HIGHT);
+		g.drawRect(300, 720, JLABLE_WIDTH, JLABLE_HIGHT);
+		g.drawRect(900, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
+		g.drawRect(935, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
+		g.drawRect(970, 750, JBUTTON2_WIDTH, JBUTTON2_HIGHT);
 	    }
 	
     }
 	
-	public void initial(){
-		buttonMouseAdapterAndActionListener buttonMouseAdapterAndActionListener=new buttonMouseAdapterAndActionListener(i,this);
-		for(int i=0;i<=6;i++){
-		this.add(buttons[i]);
-		buttons[i].addMouseListener(buttonMouseAdapterAndActionListener);
-		buttons[i].addActionListener(buttonMouseAdapterAndActionListener);
-		}
-		JLabel title=new JLabel();
-		this.add(title);
-		runIn();    //runIn¼ÓÔÚinitialÀï£¬²»ÖªµÀ¶Ô²»¶Ô
-	}
 	
-	public void paintComponent1(Graphics g){
-	//Áô×ÅÒÔºó¼ÓÍ¼Æ¬
-	}
 	
 	private void runIn(){
 		Point startTitlePoints=new Point(360,720);
 		Point[] startButtonPoints=new Point[]{new Point(360,315),new Point(360,410),new Point(360,505),new Point(360,600)};
-		//±êÌâ·ÉÈë¶¯»­
+		//æ ‡é¢˜é£å…¥åŠ¨ç”»
 			while(this.titlePoint.y!=startTitlePoints.y){
 				this.titlePoint.y-=10;
 				this.repaint();
@@ -116,8 +117,8 @@ public class JPanelLogin extends JPanel{
 				} catch (InterruptedException e) {	}
 			}
 		
-
-		//°´Å¥·ÉÈë¶¯»­
+		new Thread(new bgThread()).start();
+		//æŒ‰é’®é£å…¥åŠ¨ç”»
 		for (int i = 0; i <= this.buttonPoint.length; i++) {
 			while(this.buttonPoint[i].y!=startButtonPoints[i].y){
 				this.buttonPoint[i].y-=10;
@@ -130,11 +131,11 @@ public class JPanelLogin extends JPanel{
 	}
 	
 	private void runOut(){
-		//ÔË¶¯µÄ·½·¨(·É³ö)
-		//×îÖÕ±êÌâµÄ×ø±ê
+		//è¿åŠ¨çš„æ–¹æ³•(é£å‡º)
+		//æœ€ç»ˆæ ‡é¢˜çš„åæ ‡
 				Point finalTitlePoints=new Point(360,1241);
 				Point[] finalButtonPoints=new Point[]{new Point(360,1836),new Point(360,931),new Point(360,1026),new Point(360,1121)};
-				//±êÌâ·É³ö¶¯»­
+				//æ ‡é¢˜é£å‡ºåŠ¨ç”»
 					while(this.titlePoint.y!=finalTitlePoints.y){
 						this.titlePoint.y+=10;
 						this.repaint();
@@ -143,8 +144,8 @@ public class JPanelLogin extends JPanel{
 						} catch (InterruptedException e) {	}
 					}
 				
-
-				//°´Å¥·É³ö¶¯»­
+					new Thread(new bgThread()).start();
+				//æŒ‰é’®é£å‡ºåŠ¨ç”»
 				for (int i = 0; i <= this.buttonPoint.length; i++) {
 					while(this.buttonPoint[i].y!=finalButtonPoints[i].y){
 						this.buttonPoint[i].y+=10;
@@ -173,13 +174,13 @@ public class JPanelLogin extends JPanel{
 		repaint();
 	}
 	
-	class buttonMouseAdapterAndActionListener extends MouseAdapter implements ActionListener{
+	class buttonListener extends MouseAdapter implements ActionListener{
 
 		int i;
 		JPanelLogin jPanelLogin;
 		JPanelLoginNext1 jPanelLoginNext1;
 
-		private buttonMouseAdapterAndActionListener(int i, JPanelLogin jPanelLogin){
+		private buttonListener(int i, JPanelLogin jPanelLogin){
 			this.i=i;
 			this.jPanelLogin=jPanelLogin;
 		}
@@ -195,39 +196,59 @@ public class JPanelLogin extends JPanel{
 			buttons[i].setIcon(jFrameGame.allImage.IMG_LOGIN_BUTTONS[i]);
 
 		}
-		Êó±êÒÆ¶¯µ½ºÍÀë¿ªÊ±µÄ¶¯×÷£¬Ò²ĞíÄÜÓÃÉÏ
+		é¼ æ ‡ç§»åŠ¨åˆ°å’Œç¦»å¼€æ—¶çš„åŠ¨ä½œï¼Œä¹Ÿè®¸èƒ½ç”¨ä¸Š
 */
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if(i==1){
-			//  ĞèÒªÌí¼Ó    °´Å¥Ò»µÄ×¨Êô¶¯×÷
+			//  éœ€è¦æ·»åŠ     æŒ‰é’®ä¸€çš„ä¸“å±åŠ¨ä½œ
                 runOut();
                 removeButtons();
 			}
 			if(i==2){
-		    //  ĞèÒªÌí¼Ó    °´Å¥¶şµÄ×¨Êô¶¯×÷
+		    //  éœ€è¦æ·»åŠ     æŒ‰é’®äºŒçš„ä¸“å±åŠ¨ä½œ
                 runOut();
                 removeButtons();
 			}
 			if(i==3){
-			//  ĞèÒªÌí¼Ó    °´Å¥µÄ×¨Êô¶¯×÷
+			//  éœ€è¦æ·»åŠ     æŒ‰é’®çš„ä¸“å±åŠ¨ä½œ
 				runOut();
 				removeButtons();
 			}
 			if (i==4) {
-			//  ĞèÒªÌí¼Ó    °´Å¥µÄ×¨Êô¶¯×÷
+			//  éœ€è¦æ·»åŠ     æŒ‰é’®çš„ä¸“å±åŠ¨ä½œ
 			}
 			if(i==5){
-			//  ĞèÒªÌí¼Ó    °´Å¥µÄ×¨Êô¶¯×÷
+			//  éœ€è¦æ·»åŠ     æŒ‰é’®çš„ä¸“å±åŠ¨ä½œ
 			}
 			if (i==6) {
-			//  ĞèÒªÌí¼Ó    °´Å¥µÄ×¨Êô¶¯×÷
+			//  éœ€è¦æ·»åŠ     æŒ‰é’®çš„ä¸“å±åŠ¨ä½œ
 			}
 			
 			}
 		}
+	
+	class bgThread implements Runnable{
+
+		@Override
+		public void run() {
+			while(true){
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if(bgIndex<123){
+					bgIndex++;
+				}else{
+					bgIndex=0;
+				}
+				repaint();
+			}
+		}
 	}
+}
 	
 
