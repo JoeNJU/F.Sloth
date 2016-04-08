@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class JPanelSettings extends JFrame{
-	private static final long serialVersionUID=1L;  //ĞòÁĞ»¯//
+	private static final long serialVersionUID=1L;  //åºåˆ—åŒ–//
 	
 	public static final int JFrame_WIDTH=1024;
 	public static final int JFrame_HIGHT=768;
@@ -14,9 +14,9 @@ public class JPanelSettings extends JFrame{
 	
 	private int locationX;
 	private int locationY;
-	//ÉèÖÃ½çÃæ//
+	//è®¾ç½®ç•Œé¢//
 	public JPanelSettings(){
-		this.setTitle("ÉèÖÃÃæ°å");
+		this.setTitle("è®¾ç½®é¢æ¿");
 		this.setLayout(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(JFrame_WIDTH, JFrame_HIGHT);
