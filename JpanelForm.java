@@ -1,4 +1,3 @@
-package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,13 +19,13 @@ public class JpanelForm {
 	 * @param args
 	 */
 
-	JFrame frame = new JFrame("选择界面");
+	JFrame frame = new JFrame("动态panel");
 
-	final JPanel p1 = new JPanel();// 滑动面板1
+	final JPanel p[] = {new JPanel(),new JPanel(),new JPanel()};// 滑动面板1
 
-	final JPanel p2 = new JPanel();// 滑动面板2
+	// 滑动面板2
 
-	final JPanel p3 = new JPanel();// 滑动面板3
+	// 滑动面板3
 
 	JPanel contentPanel = new JPanel();// 主面板
 
@@ -51,27 +50,27 @@ public class JpanelForm {
 		centerPanel.setBackground(Color.WHITE);
 		centerPanel.setLayout(null);
 
-		p1.setBackground(Color.BLUE);
-		p2.setBackground(Color.GREEN);
-		p3.setBackground(Color.RED);
-		p1.add(new JLabel("图片1"));
-		p2.add(new JLabel("图片2"));
-		p3.add(new JLabel("图片3"));
+		p[0].setBackground(Color.BLUE);
+		p[1].setBackground(Color.GREEN);
+		p[2].setBackground(Color.RED);
+		p[0].add(new JLabel("图片1"));
+		p[1].add(new JLabel("图片2"));
+		p[2].add(new JLabel("图片3"));
          //给四个按钮加上监听器//
 		JButton jb1 = new JButton("panel1");
 		jb1.addActionListener(new java.awt.event.ActionListener() {// jb1事件
 
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				xiaoGuo(p1);
+				xiaoGuo(p[0]);
 
 			}
 
 		});
-		JButton jb2 = new JButton("panel2");
+		JButton jb2 = new JButton("选择");
 		jb2.addActionListener(new java.awt.event.ActionListener() {// jb1事件
 
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				xiaoGuo(p2);
+				xiaoGuo(p[1]);
 			}
 
 		});
@@ -79,7 +78,7 @@ public class JpanelForm {
 		jb3.addActionListener(new java.awt.event.ActionListener() {// jb1事件
 
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				xiaoGuo(p3);
+				xiaoGuo(p[2]);
 			}
 
 		});
@@ -88,14 +87,73 @@ public class JpanelForm {
 		jb4.addActionListener(new java.awt.event.ActionListener() {// jb1事件
 
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				returnPanel(p1);
+				returnPanel(p[0]);
 			}
 
 		});
-		topPanel.add(jb1);
+		
+		 JButton jb5= new JButton("向左");
+		 jb5.addActionListener(new java.awt.event.ActionListener() {// jb1事件
+       
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+		
+		            int number=0;
+					int count = centerPanel.getComponentCount();// 获取centerPanel中控件数
+					List list = new ArrayList();//
+					
+					for (Component comp : centerPanel.getComponents()) {
+						list.add(comp);// 给list赋值
+						final JPanel currentPanel = (JPanel) comp;// 获得当前panel
+						
+						for(int x=0;x<3;x++){
+							boolean result=currentPanel.equals(p[x]);
+							if(result==true){
+							number=x;
+							}
+						}
+					left(p[number-1]); //需要修改
+				
+					}
+				}
+		 }
+			);
+		 
+		 JButton jb6= new JButton("向右");
+		 jb6.addActionListener(new java.awt.event.ActionListener() {// jb1事件
+       
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+		
+		            int number=0;
+					int count = centerPanel.getComponentCount();// 获取centerPanel中控件数
+					List list = new ArrayList();//
+					
+					for (Component comp : centerPanel.getComponents()) {
+						list.add(comp);// 给list赋值
+						final JPanel currentPanel = (JPanel) comp;// 获得当前panel
+						
+						for(int x=0;x<3;x++){
+							boolean result=currentPanel.equals(p[x]);
+							if(result==true){
+							number=x;
+							}
+						}
+					right(p[number+1]); //需要修改
+				
+					}
+				}
+		 }
+			);
+				
+		  
+				
+		
+		
+		topPanel.add(jb5);
+		//topPanel.add(jb1);//
 		topPanel.add(jb2);
-		topPanel.add(jb3);
-		topPanel.add(jb4);//把四个按钮加到顶面板中
+		//topPanel.add(jb3);//
+		//topPanel.add(jb4);//把三个按钮加到顶面板中//
+	    topPanel.add(jb6);
 
 		contentPanel.add(topPanel, BorderLayout.NORTH);
 		contentPanel.add(centerPanel, BorderLayout.CENTER);//把顶面板和中心面板加入到主面板中
@@ -174,6 +232,123 @@ public class JpanelForm {
 
 	// 滑动效果方法 此效果为向右滑动
 	public void xiaoGuo(final JPanel panel) {
+		panel.setBounds(0, 0, centerPanel.getWidth(), centerPanel.getHeight());// 设置滑动初始位置
+		int count = centerPanel.getComponentCount();// 获取centerPanel中控件数
+		List list = new ArrayList();//
+		for (Component comp : centerPanel.getComponents()) {
+			list.add(comp);// 给list赋值
+		}
+		if (count > 0) {// 如果centerPanel中控件数大于0就执行效果
+			for (int i = 0; i < count; i++) {
+				Component comp = centerPanel.getComponent(i);// 获得该位置的控件
+
+				if (comp instanceof JPanel) {// 判断控件类型
+					final JPanel currentPanel = (JPanel) comp;// 获得当前panel
+					if (currentPanel != panel) {
+
+						new Thread() {
+
+							public void run() {
+
+								Rectangle rec = currentPanel.getBounds();// 获得当前面板的位置信息
+								int y = -centerPanel.getWidth();
+
+								for (int i = 0; i <= centerPanel.getWidth(); i += 10) {
+									// 设置面板位置
+									currentPanel.setBounds(i, 0,
+											centerPanel.getWidth(),
+											centerPanel.getHeight());
+									panel.setBounds(y, 0,
+											centerPanel.getWidth(),
+											centerPanel.getHeight());
+									try {
+										Thread.sleep(5);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									y += 10;
+								}
+
+								centerPanel.remove(currentPanel);// 移除当前面板
+
+								panel.setBounds(0, 0, centerPanel.getWidth(),
+										centerPanel.getHeight());
+
+							}
+						}.start();
+						break;
+					}
+				}
+			}
+		}
+
+		if (!list.contains(panel)) {
+			centerPanel.add(panel);// 添加要切换的面板
+		}
+
+		centerPanel.validate();// 重构内容面板
+		centerPanel.repaint();// 重绘内容面板
+	}
+	
+	
+	public void left(final JPanel panel) {
+		panel.setBounds(0, 0, centerPanel.getWidth(), centerPanel.getHeight());// 设置滑动初始位置
+		int count = centerPanel.getComponentCount();// 获取centerPanel中控件数
+		List list = new ArrayList();//
+		
+		for (Component comp : centerPanel.getComponents()) {
+			list.add(comp);// 给list赋值
+		}
+		if (count > 0) {// 如果centerPanel中控件数大于0就执行效果
+			for (int i = 0; i < count; i++) {
+				Component comp = centerPanel.getComponent(i);// 获得该位置的控件
+                
+				if (comp instanceof JPanel) {// 判断控件类型
+					final JPanel currentPanel = (JPanel) comp;// 获得当前panel
+					if (currentPanel != panel) {//panel指的是需要返回的面板//
+
+						new Thread() {
+
+							public void run() {
+
+								Rectangle rec = currentPanel.getBounds();// 获得当前面板的位置信息
+								int y = centerPanel.getWidth();
+
+								for (int i = 0; i >= -centerPanel.getWidth(); i -= 10) {
+									// 设置面板位置
+									currentPanel.setBounds(i, 0,centerPanel.getWidth(),centerPanel.getHeight());
+									panel.setBounds(y, 0,centerPanel.getWidth(),centerPanel.getHeight());
+									try {
+										Thread.sleep(5);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									y -= 10;
+								}
+
+								centerPanel.remove(currentPanel);// 移除当前面板
+
+								panel.setBounds(0, 0, centerPanel.getWidth(),
+										centerPanel.getHeight());
+
+							}
+						}.start();
+						break;
+					}
+				}
+			}
+		}
+
+		if (!list.contains(panel)) {
+			centerPanel.add(panel);// 添加要切换的面板
+		}
+
+		centerPanel.validate();// 重构内容面板
+		centerPanel.repaint();// 重绘内容面板
+	}
+	public void right(final JPanel panel) {
 		panel.setBounds(0, 0, centerPanel.getWidth(), centerPanel.getHeight());// 设置滑动初始位置
 		int count = centerPanel.getComponentCount();// 获取centerPanel中控件数
 		List list = new ArrayList();//
