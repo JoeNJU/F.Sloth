@@ -18,12 +18,13 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 
 	
 	public JPanelSingleOrDouble(JMainFrame jframe){
-		this.jMainFrame = jframe;
+		this.jMainFrame = jframe;		
 		this.setLayout(null);
 		this.setVisible(true);
 		this.initialButtons();
+		jMainFrame.getContentPane().add(this);
 		new Thread(this).start();
-		//this.repaint();
+		this.repaint();
 	}
 
 	public void run() {
@@ -42,6 +43,8 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 	
 	
 	public void paintComponent(Graphics g){
+		g.setColor(Color.blue);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		//g.drawImage(jMainFrame.everyImage.IMG_LOGIN_NEXT1, 0, 0, null);
 	
@@ -62,7 +65,7 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 			buttons[i].setBorderPainted(false);
 			//buttons[i].setContentAreaFilled(false);
 			this.add(buttons[i]);
-			ButtonListener listener=new ButtonListener(i,this);
+			ButtonListenersod listener=new ButtonListenersod(i,this);
 			buttons[i].addMouseListener(listener);
 			buttons[i].addActionListener(listener);
 		} 
@@ -71,10 +74,10 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 	
 	
 	
-	class ButtonListener extends MouseAdapter implements ActionListener{
+	class ButtonListenersod extends MouseAdapter implements ActionListener{
 		int i;
 		JPanelSingleOrDouble jPanelsod;
-		private ButtonListener(int i, JPanelSingleOrDouble jPanelsod){
+		private ButtonListenersod(int i, JPanelSingleOrDouble jPanelsod){
 			this.i=i;
 			this.jPanelsod = jPanelsod;
 		}
@@ -97,13 +100,14 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 		public void actionPerformed(ActionEvent e) {
 			switch (i) {
 			case 0:
-				
+				System.exit(0);
 				break;
 			case 1:
 				
 				break;
 			case 2:
 				new Thread(new closingThread()).start();
+				
 				break;
 			default:
 				break;
@@ -128,6 +132,10 @@ public class JPanelSingleOrDouble extends JPanel implements Runnable{
 				}
 			}
 			removeMe();
+			JPanelLogin jPanelLogin = (JPanelLogin)jMainFrame.getContentPane();
+			jPanelLogin.startAdd();
+			//JPanelPerform panel=new JPanelPerform(jMainFrame);
+			//jMainFrame.setContentPane(panel);
 		}
 		
 	}
