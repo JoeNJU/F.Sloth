@@ -1,10 +1,18 @@
 package ui;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public class EveryImage {
-	/*æ‰€æœ‰çš„å˜é‡å’Œæ–¹æ³•éƒ½é™å®šä¸ºpublic
-	 * æ‰€æœ‰çš„å›¾ç‰‡å¼•ç”¨éƒ½æ¥è‡ªäºæ­¤
-	 * å›¾ç‰‡å‘½åè§„åˆ™ï¼šIMG_åˆ†ç±»_åå­—
+	/*ËùÓĞµÄ±äÁ¿ºÍ·½·¨¶¼ÏŞ¶¨Îªpublic
+	 * ËùÓĞµÄÍ¼Æ¬ÒıÓÃ¶¼À´×ÔÓÚ´Ë
+	 * Í¼Æ¬ÃüÃû¹æÔò£ºIMG_·ÖÀà_Ãû×Ö
 	 */
-	 public  Image CURSOR = new ImageIcon("graphics/component/cursor.png").getImage();
+	public Image CURSOR = new ImageIcon("graphics/component/cursor.png").getImage();
+	public Image IMG_LOGIN_NEXT = new ImageIcon("graphics/bg/loginnext.png").getImage();
+	public Image IMG_LOGIN_TITLE = new ImageIcon("graphics/login/title.png").getImage();
+	public ImageIcon[] IMG_LOGIN_BUTTONS=new ImageIcon[]{new ImageIcon("graphics/login/start-game.png"),new ImageIcon("graphics/login/setting.png"),new ImageIcon("graphics/login/achievement.png"),new ImageIcon("graphics/login/about-us.png")};
+	
 
 }
