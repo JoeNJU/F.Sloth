@@ -62,12 +62,12 @@ public class JPanelLoginNext extends JPanel implements Runnable{
 		this.buttons=new JButton[]{new JButton(),new JButton(),new JButton(),new JButton()};
 		Point[] points=new Point[]{new Point(104,67),new Point(129,144),new Point(73,218),new Point(129,304)};
 		for (int i = 0; i < points.length; i++) {
-			buttons[i].setBounds(points[i].x, points[i].y,jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i].getImage().getWidth(null),jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i].getImage().getHeight(null));
+			buttons[i].setBounds(points[i].x, points[i].y,jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getWidth(null),jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getHeight(null));
 			buttons[i].setBorderPainted(false);
 			buttons[i].setContentAreaFilled(false);
-			buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
+			buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i]);
 			this.add(buttons[i]);
-			ButtonListener listener=new ButtonListener(i,this);
+			ButtonListenerln listener=new ButtonListenerln(i,this);
 			buttons[i].addMouseListener(listener);
 			buttons[i].addActionListener(listener);
 		} 
@@ -75,26 +75,27 @@ public class JPanelLoginNext extends JPanel implements Runnable{
 	
 	
 	
-	class ButtonListener extends MouseAdapter implements ActionListener{
+	class ButtonListenerln extends MouseAdapter implements ActionListener{
 		int i;
 		JPanelLoginNext jPanelln;
-		private ButtonListener(int i, JPanelLoginNext jPanelln){
+		private ButtonListenerln(int i, JPanelLoginNext jPanelln){
 			this.i=i;
 			this.jPanelln = jPanelln;
 		}
 		
 		@Override
 		public void mouseEntered(MouseEvent e){
-			buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
-			//setIcon(jFrameGame.allImage.IMG_LOGIN_NEXT1_BUTTONS_ENTERED[i]);
+			Point[] points=new Point[]{new Point(108,63),new Point(133,140),new Point(77,214),new Point(133,300)};
+			buttons[i].setBounds(points[i].x, points[i].y,jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getWidth(null),jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getHeight(null));
 			/*if(jFrameGame.isVoice()){
 				new AudioPlayer("");
 			}*/
 		}
 		@Override
 		public void mouseExited(MouseEvent e){
+			Point[] points=new Point[]{new Point(104,67),new Point(129,144),new Point(73,218),new Point(129,304)};
+			buttons[i].setBounds(points[i].x, points[i].y,jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getWidth(null),jMainFrame.everyImage.IMG_LOGIN1_BUTTONS[i].getImage().getHeight(null));
 			
-			buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
 		}
 
 		@Override

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class JPanelLogin extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	/*本类用于游戏的登陆界面
@@ -72,7 +73,18 @@ public class JPanelLogin extends JPanel implements Runnable{
 	}
 	
 	public void initialButtons(){
-		
+		this.buttons=new JButton[]{new JButton(),new JButton(),new JButton()};
+		Point[] points=new Point[]{new Point(830,14),new Point(895,14),new Point(950,16)};
+		for (int i = 0; i < points.length; i++) {
+			buttons[i].setBounds(points[i].x, points[i].y,jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i].getImage().getWidth(null),jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i].getImage().getHeight(null));
+			buttons[i].setBorderPainted(false);
+			buttons[i].setContentAreaFilled(false);
+			buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
+			this.add(buttons[i]);
+			ButtonListenerl listener=new ButtonListenerl(i);
+			buttons[i].addMouseListener(listener);
+			buttons[i].addActionListener(listener);
+		} 
 		
 	}
 	
@@ -84,15 +96,44 @@ public class JPanelLogin extends JPanel implements Runnable{
 	
 	
 	
-	class ButtonListenerl implements ActionListener{
-		
+	class ButtonListenerl extends MouseAdapter implements ActionListener{
+		int i;
+		private ButtonListenerl(int i){
+			this.i=i;
+		}
 		
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-
+		public void mouseEntered(MouseEvent e){
+			Point[] points=new Point[]{new Point(832,12),new Point(897,12),new Point(952,14)};
+			buttons[i].setBounds(points[i].x, points[i].y,61,55);
+			//setIcon(jFrameGame.allImage.IMG_LOGIN_NEXT1_BUTTONS_ENTERED[i]);
+			/*if(jFrameGame.isVoice()){
+				new AudioPlayer("");
+			}*/
 		}
-			
+		@Override
+		public void mouseExited(MouseEvent e){
+			Point[] points=new Point[]{new Point(830,14),new Point(895,14),new Point(950,16)};
+			buttons[i].setBounds(points[i].x, points[i].y,61,55);
+			//buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			switch (i) {
+			case 0:
+				
+				break;//音量键
+			case 1:
+				JPanelHelp jPanelHelp = new JPanelHelp(jMainFrame);
+				break;//帮助键
+			case 2:
+				System.exit(0);
+				break;//关闭键
+			default:
+				break;
+			}
+		}
 	}
 
 }
