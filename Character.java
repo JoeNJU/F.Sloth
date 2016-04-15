@@ -10,15 +10,13 @@ public class Character extends JPanel implements KeyListener{
 	
 	private static final long serialVersionUID = 1L;
 	//String name;
-	private int family;
-    private int rank;//宝宝为0，爸爸为1，妈妈为2
+	private int family;//0号家庭于右下角先走
+    private int rank;//爸爸为0，妈妈为1，宝宝为2
     private int score = 0;
     private Point location;//实际坐标
     private int vision;
     private int activity = 7;//体力
-    private Point[] homeLoc;
-    private int x;
-    private int y;
+    private Point homeLoc;//012为0号家庭大本营，
     private boolean hidden = false;
     private boolean alive = true;
     private boolean isMove = false;
@@ -30,19 +28,40 @@ public class Character extends JPanel implements KeyListener{
     }
     
     private void initial(){
-    	switch(rank){
-    	case 0:
     		
-    		break;
-    	case 1:
-    		
-    		break;
-    	case 2:
-    		
-    		break;
-    	default:
-    		break;
-    	}
+    	if(family == 0){
+    		location.x = 14;
+    		switch(rank){
+        	case 0:
+        		location.y = 12;
+        		break;
+        	case 1:
+        		location.y = 7;
+        		break;
+        	case 2:
+        		location.y = 2;
+        		break;
+        	default:
+        		break;
+        	}
+    	}else{
+    		location.x = 0;
+    		switch(rank){
+        	case 0:
+        		location.y = 2;
+        		break;
+        	case 1:
+        		location.y = 7;
+        		break;
+        	case 2:
+        		location.y = 12;
+        		break;
+        	default:
+        		break;
+        	}
+    	}//确定初始位
+    	
+    	homeLoc = location;
     }
     
     public void paintComponent(Graphics g){
@@ -57,8 +76,12 @@ public class Character extends JPanel implements KeyListener{
 	
 	}
     
+    int getActivity(){
+    	return activity;
+    }
+    
     void hit(){
-    	location = homeLoc[rank];
+    	location = homeLoc;
     	this.repaint();
     	//打中回家
     }
@@ -108,16 +131,16 @@ public class Character extends JPanel implements KeyListener{
 		if(isMove){
 			switch(arg0.getKeyCode()){
 			case KeyEvent.VK_LEFT:
-				
+				location.x --;
 				break;
 			case KeyEvent.VK_RIGHT:
-				
+				location.x ++;
 				break;
 			case KeyEvent.VK_UP:
-				
+				location.y --;
 				break;
 			case KeyEvent.VK_DOWN:
-				
+				location.y ++;
 				break;
 			}
 		}

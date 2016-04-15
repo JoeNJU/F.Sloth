@@ -1,18 +1,20 @@
 package game;
 
 import java.awt.event.*;
-
+import java.awt.*;
 import javax.swing.*;
 
 public class Block{
 	
 	private static final long serialVersionUID = 1L;
+	//Ã¿Ò»¸ö¸ñ×Ó¶¼ÊÇÒ»¸ö°´Å¥
 	private boolean occupied = false;
 	private Character person;
 	private int family;
 	private boolean isHome = false;
 	private int x;
 	private int y;
+	private Point location;//(411+x*36-y*27,168+x*10+y*10)
 	
 	Block(int x, int y){
 		this.x = x;
@@ -22,7 +24,7 @@ public class Block{
 	
 	void setPerson(Character person){
 		this.person = person;
-	}//äººç«™åœ¨ä¸Šé¢ï¼Œä½†æ˜¯ä¸ä¸€å®šå·²ç»å é¢†
+	}//ÈËÕ¾ÔÚÉÏÃæ£¬µ«ÊÇ²»Ò»¶¨ÒÑ¾­Õ¼Áì
 	
 	void setHome(int family){
 		isHome = true;
@@ -43,7 +45,7 @@ public class Block{
 			occupied = true;
 			this.family = family;
 		}
-	}//è¢«å é¢†ï¼Œä½†æ˜¯ä¸ä¸€å®šæœ‰äºº
+	}//±»Õ¼Áì£¬µ«ÊÇ²»Ò»¶¨ÓĞÈË
 	
 	
 	
