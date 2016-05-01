@@ -1,15 +1,19 @@
 package game;
 
+import ui.JPanelGame;
+
 public class Control {
 	int family = 0,rank = 0;
-	Character personNow;
-	private Block[][] blocks;
-	private Character[][] characters;
+	public Person personNow;     
+	private Block[][] blocks = new Block[15][15];  
+	private Person[][] people = new Person[2][3]; 
+	private JPanelGame game;
 	
-	Control(){
+	public Control(JPanelGame game){
+		this.game = game;
 		initial();
 	}
-	void initial(){
+	void initial(){   
 		for(int i = 0;i<15;i++){
 			for(int j = 0;i<15;i++){
 				blocks[i][j] = new Block(i,j);
@@ -17,17 +21,21 @@ public class Control {
 		}
 		
 		for(int i = 0;i<2;i++){
-			for(int j = 0;i<3;i++){
-				characters[i][j] = new Character(i,j);
+			for(int j = 0;j<3;j++){
+				people[i][j] = new Person(i,j);
+				game.add(people[i][j]);
+				people[i][j].repaint();
 			}
 		}
+		refresh();
+		game.basicAdd(personNow);
 	}
 	
 	public void refresh(){
-		personNow = characters[family][rank];
+		personNow = people[family][rank];
 	}
 	
-	public boolean isActive(){
+	public boolean isActive(){    	
 		int activity = personNow.getActivity();
 		if(activity<=0){
 			return false;
@@ -37,7 +45,7 @@ public class Control {
 		
 	}
 	
-	public boolean isFinish(){
+	public boolean isFinish(){     
 		for(int i = 0;i<15;i++){
 			for(int j = 0;i<15;i++){
 				if(!blocks[i][j].isOccupied()){
@@ -59,6 +67,25 @@ public class Control {
 			family = 0;
 			rank = 0;
 		}
-	}//»»ÈË
+		refresh();
+	}
+    
+	/*public void Start(){
+		if(!isFinish()){
+		
+		for(int count=0;count<=300;count++){ 
+		    refresh();
+			while(isActive()){
+			Jpanelchoose a=new Jpanelchoose();
+				a.appear();   
+			}
+			nextPer();
+		   }
+		 }
+		else{
+			
+		}
+	}*/
+	
 
 }
