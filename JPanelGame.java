@@ -24,6 +24,7 @@ public class JPanelGame extends JPanel{
 	private JMainFrame jMainFrame;
 	private JButton[] buttons;
 	private Control control;
+	private int commandNow;
 	
 	
 	public JPanelGame(JMainFrame jframe){
@@ -35,48 +36,49 @@ public class JPanelGame extends JPanel{
 		this.setVisible(true);
 		jMainFrame.setDragable(this);
 		jMainFrame.setContentPane(this);
-		initialButtons();
 		control = new Control(this);
-		this.repaint();
+		//this.repaint();
 	}
 	
 	public void initialButtons(){
-		this.buttons=new JButton[]{new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton()};
-		//Point[] points=new Point[]{new Point(100,200),new Point(200,200),new Point(300,200),new Point(400,200)};
-		for (int i = 0; i < 4; i++) {
-			//buttons[i].setBounds(points[i].x, points[i].y, 80,50);
+		this.buttons=new JButton[]{new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton()};
+		//9个按钮分别为占领，骚扰，移动，隐现身，上，下，左，右，返回
+		for (int i = 0; i < 9; i++) {
 			buttons[i].setBorderPainted(false);
 			this.add(buttons[i]);
 			buttons[i].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[i]);
+			buttons[i].setBorderPainted(false);
+			buttons[i].setContentAreaFilled(false);
 			ButtonListener listener=new ButtonListener(i);
 			buttons[i].addMouseListener(listener);
 			buttons[i].addActionListener(listener);
+			buttons[i].setRequestFocusEnabled(false);
 			buttons[i].setVisible(false);
 		} 
 	}
 	
 	public void basicAdd(Person person){//添加基础选项，x和y为人物所在 格子坐标
-		Point location = person.getLocation();//真实坐标
-		Point[] points=new Point[]{new Point(location.x,location.y),new Point(location.x,location.y),new Point(location.x,location.y),new Point(location.x,location.y)};
+		Point location = person.getRealPoint();//真实坐标
+		Point[] points=new Point[]{new Point(location.x+20,location.y-50),new Point(location.x-33,location.y-35),new Point(location.x-55,location.y+10),new Point(location.x-33,location.y+58)};
 		if(person.isHide()){
-			buttons[3].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[4]);
-			buttons[3].setLocation(points[0]);
+			buttons[3].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[9]);
+			buttons[3].setBounds(points[0].x,points[0].y,40,40);
 			buttons[3].setVisible(true);
-			if(person.getActivity()!=1){
-				buttons[2].setLocation(points[1]);
+			if(person.getActivity()>1){
+				buttons[2].setBounds(points[1].x,points[1].y,40,40);
 				buttons[2].setVisible(true);
 			}			
 		}else if(person.getActivity()<4){
 			buttons[3].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[3]);
 			for(int i = 3;i>3-person.getActivity();i--){
-				buttons[i].setLocation(points[i]);
+				buttons[i].setBounds(points[i].x,points[i].y,40,40);
 				buttons[i].setVisible(true);
 			}
 			
 		}else{
 			buttons[3].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[3]);
 			for(int i = 0;i<4;i++){
-				buttons[i].setLocation(points[i]);
+				buttons[i].setBounds(points[i].x,points[i].y,40,40);
 				buttons[i].setVisible(true);
 			}
 		}
@@ -84,12 +86,27 @@ public class JPanelGame extends JPanel{
 	}
 	
 	public void removeButtons(){//去掉屏幕上已经显示的按钮
-		for(int i = 0;i<4;i++){
+		for(int i = 0;i<9;i++){
 			buttons[i].setVisible(false);
 		}
 	}
 	
-	public void directAdd(){//添加上下左右按钮
+	public void directAdd(Person person,int i){//添加上下左右按钮,i用于表示执行的具体命令
+		Point location = person.getRealPoint();//真实坐标
+		Point[] points=new Point[]{new Point(location.x+24,location.y+26),new Point(location.x-24,location.y+69),new Point(location.x-36,location.y+39),new Point(location.x+30,location.y+60),new Point(location.x+50,location.y-40)};
+		for(i=4;i<9;i++){
+			buttons[i].setBounds(points[i-4].x,points[i-4].y,40,40);
+			buttons[i].setVisible(true);
+		}
+		if(control.personNow.location.x==0){
+			buttons[6].setVisible(false);
+		}else if(control.personNow.location.x==14){
+			buttons[7].setVisible(false);
+		}else if(control.personNow.location.y==0){
+			buttons[4].setVisible(false);
+		}else if(control.personNow.location.y==14){
+			buttons[5].setVisible(false);
+		}
 		
 	}
 	
@@ -106,31 +123,104 @@ public class JPanelGame extends JPanel{
 		
 		@Override
 		public void mouseEntered(MouseEvent e){
-			buttons[i].setLocation(buttons[i].getLocation().x+2, buttons[i].getLocation().y-2);
+			if(i<4||i==8){
+				buttons[i].setLocation(buttons[i].getLocation().x+2, buttons[i].getLocation().y-2);
+			}else if(commandNow!=2){
+				control.personNow.setExample(i-4, true);
+				control.repaintAll();
+			}
 			/*if(jFrameGame.isVoice()){
 				new AudioPlayer("");
 			}*/
 		}
 		@Override
 		public void mouseExited(MouseEvent e){
-			buttons[i].setLocation(buttons[i].getLocation().x-2, buttons[i].getLocation().y+2);
-			
+			if(i<4||i==8){
+				buttons[i].setLocation(buttons[i].getLocation().x-2, buttons[i].getLocation().y+2);
+			}else if(commandNow!=2){
+				control.personNow.setExample(i-4, false);
+				control.repaintAll();
+			}
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			switch (i) {
 			case 0://占领
-				
+				removeButtons();
+				directAdd(control.personNow,i);
+				commandNow = i;
 				break;
 			case 1://骚扰
-				
+				removeButtons();
+				directAdd(control.personNow,i);
+				commandNow = i;
 				break;
 			case 2://移动
-				
+				removeButtons();
+				directAdd(control.personNow,i);
+				commandNow = i;
 				break;
 			case 3://隐身或现身
-				
+				removeButtons();
+				control.personNow.changeState();
+				control.refresh();
+				break;
+			case 4://上
+				if(commandNow==0){
+					control.personNow.occupy(i-4);
+					control.refresh();
+				}else if(commandNow==1){
+					control.personNow.disturb(i-4);
+					control.refresh();
+				}else if(commandNow==2){
+					control.personNow.move(i-4);
+					control.refresh(0);
+				}
+				control.repaintAll();
+				break;
+			case 5://下
+				if(commandNow==0){
+					control.personNow.occupy(i-4);
+					control.refresh();
+				}else if(commandNow==1){
+					control.personNow.disturb(i-4);
+					control.refresh();
+				}else if(commandNow==2){
+					control.personNow.move(i-4);
+					control.refresh(0);
+				}
+				control.repaintAll();
+				break;
+			case 6://左
+				if(commandNow==0){
+					control.personNow.occupy(i-4);
+					control.refresh();
+				}else if(commandNow==1){
+					control.personNow.disturb(i-4);
+					control.refresh();
+				}else if(commandNow==2){
+					control.personNow.move(i-4);
+					control.refresh(0);
+				}
+				control.repaintAll();
+				break;
+			case 7://右
+				if(commandNow==0){
+					control.personNow.occupy(i-4);
+					control.refresh();
+				}else if(commandNow==1){
+					control.personNow.disturb(i-4);
+					control.refresh();
+				}else if(commandNow==2){
+					control.personNow.move(i-4);
+					control.refresh(0);
+				}
+				control.repaintAll();
+				break;
+			case 8://返回
+				removeButtons();
+				control.refresh();
 				break;
 			default:
 				break;
