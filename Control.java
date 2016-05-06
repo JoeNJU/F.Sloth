@@ -8,8 +8,8 @@ public class Control {
 	int family = 0,rank = 0;
 	public Person personNow; 
 	private Person personLast;
-	Block[][] blocks = new Block[15][15];  
-	Person[][] people = new Person[2][3]; 
+	public Block[][] blocks = new Block[15][15];  
+	public Person[][] people = new Person[2][3]; 
 	private JPanelGame game;
 	private int count = 1;//记录回合数
 	
@@ -48,7 +48,9 @@ public class Control {
 			
 		}else if(isActive()){
 			game.basicAdd(personNow);
+			personNow.setExample(personNow.direction, false);
 		}else{
+			personNow.setExample(personNow.direction, false);
 			nextPer();
 		}
 		
@@ -62,6 +64,7 @@ public class Control {
 		}else if(personNow.getActivity()>=2){
 			game.directAdd(personNow,2);
 		}else if(isActive()){
+			personNow.setExample(personNow.direction, false);
 			game.basicAdd(personNow);
 		}else{
 			nextPer();
@@ -79,7 +82,7 @@ public class Control {
 	}
 	
 	public boolean isFinish(){
-		if(count>=12){//限定回合数
+		if(count>=60){//限定回合数
 			return true;
 		}
 		for(int i = 0;i<15;i++){
@@ -104,7 +107,14 @@ public class Control {
 			rank++;
 		}
 		personLast = personNow;
-		refresh();
+		personNow = people[family][rank];
+		if(!personNow.isAwake()){
+			personNow.setAwake(true);
+			nextPer();
+		}else{
+			refresh();
+		}
+		
 	}
 	
 	public void repaintAll(){

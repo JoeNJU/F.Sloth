@@ -15,14 +15,15 @@ public class Person extends JPanel{
     private ImageIcon[] IMG_FATHER = new ImageIcon[]{new ImageIcon("graphics/character/10.png"),new ImageIcon("graphics/character/11.png"),new ImageIcon("graphics/character/12.png"),new ImageIcon("graphics/character/13.png")};
 	private ImageIcon[] IMG_MOTHER = new ImageIcon[]{new ImageIcon("graphics/character/20.png"),new ImageIcon("graphics/character/21.png"),new ImageIcon("graphics/character/22.png"),new ImageIcon("graphics/character/23.png")};
 	private ImageIcon[] IMG_GIRL = new ImageIcon[]{new ImageIcon("graphics/character/30.png"),new ImageIcon("graphics/character/31.png"),new ImageIcon("graphics/character/32.png"),new ImageIcon("graphics/character/33.png")};
+	private ImageIcon[] IMG_BOY = new ImageIcon[]{new ImageIcon("graphics/character/30.png"),new ImageIcon("graphics/character/31.png"),new ImageIcon("graphics/character/32.png"),new ImageIcon("graphics/character/33.png")};
     
     public Point location = new Point(0,0);//(420+x*34-y*23,125+x*10+y*20)
     private int vision;
     private int activity = 7;//体力
     private Point homeLoc;//012为0号家庭大本营，
     private boolean hidden = false;
-    private boolean alive = true;
-    private int direction ;
+    private boolean awake = true;
+    int direction ;
     private Control control;
     
     
@@ -58,6 +59,15 @@ public class Person extends JPanel{
     	
 
 		if(hidden){
+			if(rank==0){
+				g.drawImage(IMG_FATHER[direction].getImage(), 0, 0, null);
+			}else if(rank==1){
+				g.drawImage(IMG_MOTHER[direction].getImage(), 0, 0, null);
+			}else if(rank==2&&family==0){
+				g.drawImage(IMG_GIRL[direction].getImage(), 0, 0, null);
+			}else{
+				g.drawImage(IMG_BOY[direction].getImage(), 0, 0, null);
+			}
 			//隐身图案
 		}else{
 			if(rank==0){
@@ -66,6 +76,8 @@ public class Person extends JPanel{
 				g.drawImage(IMG_MOTHER[direction].getImage(), 0, 0, null);
 			}else if(rank==2&&family==0){
 				g.drawImage(IMG_GIRL[direction].getImage(), 0, 0, null);
+			}else{
+				g.drawImage(IMG_BOY[direction].getImage(), 0, 0, null);
 			}
 		}
 	
@@ -75,7 +87,7 @@ public class Person extends JPanel{
     private void initial(){
     		
     	if(family == 0){
-    		location.x = 5;
+    		location.x = 14;
     		switch(rank){
         	case 0:
         		location.y = 12;
@@ -106,7 +118,7 @@ public class Person extends JPanel{
         	}
     	}//确定初始位
     	
-    	homeLoc = location;
+    	homeLoc = new Point(location);
     }
     
     public void disturb(int direction){//骚扰
@@ -118,7 +130,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).hitPerson(family);
     	    	Block(location.x-1,location.y).hitPerson(family);
     	    	Block(location.x-1,location.y+1).hitPerson(family);
-    	    	Block(location.x,location.y+1).hitPerson(family);
+    	    	Block(location.x,location.y-1).hitPerson(family);
     	    	Block(location.x+1,location.y).hitPerson(family);
     	    	Block(location.x+1,location.y-1).hitPerson(family);
     	    	Block(location.x+1,location.y+1).hitPerson(family);
@@ -131,7 +143,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).hitPerson(family);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y-count).hitPerson(family);
     	    	}
     	    }
@@ -146,7 +158,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).hitPerson(family);
     	    	Block(location.x-1,location.y).hitPerson(family);
     	    	Block(location.x-1,location.y+1).hitPerson(family);
-    	    	Block(location.x,location.y-1).hitPerson(family);
+    	    	Block(location.x,location.y+1).hitPerson(family);
     	    	Block(location.x+1,location.y).hitPerson(family);
     	    	Block(location.x+1,location.y-1).hitPerson(family);
     	    	Block(location.x+1,location.y+1).hitPerson(family);
@@ -159,7 +171,7 @@ public class Person extends JPanel{
     	    	Block(location.x+2,location.y).hitPerson(family);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y+count).hitPerson(family);
     	    	}
     	    }
@@ -183,7 +195,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).hitPerson(family);
      	    }else
      	    if(rank==2){	
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x-count,location.y).hitPerson(family);
     	    	}
      	    }
@@ -209,14 +221,14 @@ public class Person extends JPanel{
      	    	
      	    }else
      	    if(rank==2){
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x+count,location.y).hitPerson(family);
     	    	}
      	    }
      	break;
     		
     	}
-    	activity -= 2;
+    	activity -= 3;
     	
     }
     
@@ -226,9 +238,10 @@ public class Person extends JPanel{
     	return activity;
     }
     
-    void hit(){   //character(i,j).hit();
-    	
-    	location = homeLoc;
+    void hit(){   //character(i,j).hit();   	
+    	location.x = homeLoc.x;
+    	location.y = homeLoc.y;
+    	System.out.println(location.x+" "+location.y);
     	//被打中回家
     }
     
@@ -241,7 +254,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).setOccupied(family,rank);
     	    	Block(location.x-1,location.y).setOccupied(family,rank);
     	    	Block(location.x-1,location.y+1).setOccupied(family,rank);
-    	    	Block(location.x,location.y+1).setOccupied(family,rank);
+    	    	Block(location.x,location.y-1).setOccupied(family,rank);
     	    	Block(location.x+1,location.y).setOccupied(family,rank);
     	    	Block(location.x+1,location.y-1).setOccupied(family,rank);
     	    	Block(location.x+1,location.y+1).setOccupied(family,rank);
@@ -254,7 +267,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).setOccupied(family,rank);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y-count).setOccupied(family,rank);
     	    	}
     	    }
@@ -269,7 +282,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).setOccupied(family,rank);
     	    	Block(location.x-1,location.y).setOccupied(family,rank);
     	    	Block(location.x-1,location.y+1).setOccupied(family,rank);
-    	    	Block(location.x,location.y-1).setOccupied(family,rank);
+    	    	Block(location.x,location.y+1).setOccupied(family,rank);
     	    	Block(location.x+1,location.y).setOccupied(family,rank);
     	    	Block(location.x+1,location.y-1).setOccupied(family,rank);
     	    	Block(location.x+1,location.y+1).setOccupied(family,rank);
@@ -282,7 +295,7 @@ public class Person extends JPanel{
     	    	Block(location.x+2,location.y).setOccupied(family,rank);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y+count).setOccupied(family,rank);
     	    	}
     	    }
@@ -306,7 +319,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).setOccupied(family,rank);
      	    }else
      	    if(rank==2){	
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x-count,location.y).setOccupied(family,rank);
     	    	}
      	    }
@@ -332,7 +345,7 @@ public class Person extends JPanel{
      	    	
      	    }else
      	    if(rank==2){
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x+count,location.y).setOccupied(family,rank);
     	    	}
      	    }
@@ -352,7 +365,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).setExample(a);
     	    	Block(location.x-1,location.y).setExample(a);
     	    	Block(location.x-1,location.y+1).setExample(a);
-    	    	Block(location.x,location.y+1).setExample(a);
+    	    	Block(location.x,location.y-1).setExample(a);
     	    	Block(location.x+1,location.y).setExample(a);
     	    	Block(location.x+1,location.y-1).setExample(a);
     	    	Block(location.x+1,location.y+1).setExample(a);
@@ -365,7 +378,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).setExample(a);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y-count).setExample(a);
     	    	}
     	    }
@@ -380,7 +393,7 @@ public class Person extends JPanel{
     	    	Block(location.x-1,location.y-1).setExample(a);
     	    	Block(location.x-1,location.y).setExample(a);
     	    	Block(location.x-1,location.y+1).setExample(a);
-    	    	Block(location.x,location.y-1).setExample(a);
+    	    	Block(location.x,location.y+1).setExample(a);
     	    	Block(location.x+1,location.y).setExample(a);
     	    	Block(location.x+1,location.y-1).setExample(a);
     	    	Block(location.x+1,location.y+1).setExample(a);
@@ -393,7 +406,7 @@ public class Person extends JPanel{
     	    	Block(location.x+2,location.y).setExample(a);
     	    }else
     	    if(rank==2){
-    	    	for(int count=0;count<=4;count++){
+    	    	for(int count=1;count<=4;count++){
     	    		Block(location.x,location.y+count).setExample(a);
     	    	}
     	    }
@@ -417,7 +430,7 @@ public class Person extends JPanel{
     	    	Block(location.x-2,location.y).setExample(a);
      	    }else
      	    if(rank==2){	
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x-count,location.y).setExample(a);
     	    	}
      	    }
@@ -443,7 +456,7 @@ public class Person extends JPanel{
      	    	
      	    }else
      	    if(rank==2){
-     	    	for(int count=0;count<=4;count++){
+     	    	for(int count=1;count<=4;count++){
     	    		Block(location.x+count,location.y).setExample(a);
     	    	}
      	    }
@@ -465,11 +478,23 @@ public class Person extends JPanel{
 
     
     void stop(){
-    	alive = false;
+    	awake = false;
     }//停止时进入假死状态
     
-    boolean isAlive(){
-    	return alive;
+    boolean isAwake(){
+    	return awake;
+    }
+    
+    public boolean inDanger(){
+    	if(control.blocks[location.x][location.y].family==1-family){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+    
+    void setAwake(boolean a){
+    	awake = a;
     }
     
     public void changeState(){  //隐身变成现身，现身变成隐身

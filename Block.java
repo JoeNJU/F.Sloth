@@ -10,8 +10,8 @@ public class Block extends JPanel{
 	//每一个格子都是一个按钮
 	private boolean occupied = false;
 	boolean isExample = false;
-	private int family;
-	private int rank;
+	public int family = 2;
+	private int rank = 3;
 	private boolean isHome;
 	private Point location;//(410+x*34-y*26,196+x*10+y*23)
 	private Control control;
@@ -60,12 +60,24 @@ public class Block extends JPanel{
 		for(int i = 0;i<2;i++){
 			for(int j=0;j<3;j++){
 				Person person = control.people[i][j];
-				if(person.family!=family&&person.location.x==location.x&&person.location.y==location.y){
-					control.people[i][j].hit();
+				if(!person.isHide()&&person.family!=family&&person.location.x==location.x&&person.location.y==location.y){
+					person.stop();
 				}
 			}
 		}
 	}//人站在上面，但是不一定已经占领
+	
+	public boolean hasPerson(){
+		for(int i = 0;i<2;i++){
+			for(int j=0;j<3;j++){
+				Person person = control.people[i][j];
+				if(!person.isHide()&&person.location.x==location.x&&person.location.y==location.y){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public void setHome(int family){
 		isHome = true;
@@ -82,6 +94,14 @@ public class Block extends JPanel{
 		    occupied = true;
 			this.family = family;
 			this.rank = rank;
+			for(int i = 0;i<2;i++){
+				for(int j=0;j<3;j++){
+					Person person = control.people[i][j];
+					if(person.family!=family&&person.location.x==location.x&&person.location.y==location.y){
+						person.hit();
+					}
+				}
+			}
 		}
 	}//被占领，但是不一定有人
 	
