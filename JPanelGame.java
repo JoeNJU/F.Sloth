@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.*;
@@ -17,11 +18,11 @@ public class JPanelGame extends JPanel{
 	 */
 	
 	private JMainFrame jMainFrame;
-	private JButton[] buttons = new JButton[10];
+	private JButton[] buttons = new JButton[11];
 	private Control control;
 	private int commandNow;
-	private JLabel label;
-	JPanelStop jps;
+	public JTextField countText;
+	private JPanelStop jps;
 	
 	
 	public JPanelGame(JMainFrame jframe){
@@ -34,6 +35,7 @@ public class JPanelGame extends JPanel{
 		jMainFrame.setDragable(this);
 		jMainFrame.setContentPane(this);
 		jps = new JPanelStop(jMainFrame);
+		
 		for (int i = 0; i < 4; i++) {
 			buttons[i] = new JButton();
 			buttons[i].setBorderPainted(false);
@@ -48,12 +50,28 @@ public class JPanelGame extends JPanel{
 			buttons[i].setVisible(false);
 		} 
 		control = new Control(this);
+		addSkip();
+		initialText();
+		
 		//this.repaint();
+	}
+	
+	public void initialText(){
+		countText = new JTextField(100);
+		countText.setBorder(null);
+		countText.setOpaque(false);
+		Font textFont = new Font("serif",Font.BOLD,30);
+		countText.setFont(textFont);
+		add(countText);
+		countText.setBounds(0, 0, 1024, 40);
+		countText.setText("Total 120 turns, now 1 turn");		
+		countText.setFocusable(false);
+		
 	}
 	
 	public void initialButtons(){
 		//9个按钮分别为占领，骚扰，移动，隐现身，上，下，左，右，返回
-		for (int i = 4; i < 10; i++) {
+		for (int i = 4; i < 11; i++) {
 			buttons[i] = new JButton();
 			buttons[i].setBorderPainted(false);
 			this.add(buttons[i]);
@@ -69,6 +87,13 @@ public class JPanelGame extends JPanel{
 		buttons[9].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[10]);
 		buttons[9].setBounds(934,10,73,72);
 		buttons[9].setVisible(true);
+		buttons[10].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[11]);
+	}
+	
+	public void addSkip(){	
+		Point[] skipPoint = new Point[]{new Point(689,717),new Point(247,717)};
+		buttons[10].setBounds(skipPoint[control.personNow.family].x,skipPoint[control.personNow.family].y,87,39);
+		buttons[10].setVisible(true);
 	}
 	
 	public void basicAdd(Person person){//添加基础选项，x和y为人物所在 格子坐标
@@ -145,7 +170,17 @@ public class JPanelGame extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		g.drawImage(jMainFrame.everyImage.IMG_GAME_BG, 0, 0,JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT,null);
-	
+		if(control.personNow.family==1){
+			g.drawImage(jMainFrame.everyImage.IMG_ACTIVITY_LEFT[control.personNow.getActivity()-1].getImage(), 0, 568, 240,200,null);
+			g.drawImage(jMainFrame.everyImage.IMG_ACTIVITY_RIGHT[6].getImage(), JMainFrame.JFRAME_WIDTH-240,  568, 240,200,null);
+			g.drawImage(jMainFrame.everyImage.IMG_CHARACTER_HEAD[1][control.personNow.rank].getImage(),0,768-jMainFrame.everyImage.IMG_CHARACTER_HEAD[1][control.personNow.rank].getIconHeight(), null);
+			g.drawImage(jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][(control.personLast.rank+1)%3].getImage(),1024-jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][(control.personLast.rank+1)%3].getIconWidth(), 768-jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][(control.personLast.rank+1)%3].getIconHeight(), null);
+		}else{
+			g.drawImage(jMainFrame.everyImage.IMG_ACTIVITY_LEFT[6].getImage(),  0, 568,240,200, null);
+			g.drawImage(jMainFrame.everyImage.IMG_ACTIVITY_RIGHT[control.personNow.getActivity()-1].getImage(), JMainFrame.JFRAME_WIDTH-240, 568,240,200, null);
+			g.drawImage(jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][control.personNow.rank].getImage(),1024-jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][control.personNow.rank].getIconWidth(), 768-jMainFrame.everyImage.IMG_CHARACTER_HEAD[0][control.personNow.rank].getIconHeight(), null);
+			g.drawImage(jMainFrame.everyImage.IMG_CHARACTER_HEAD[1][(control.personLast.rank+1)%3].getImage(), 0,768-jMainFrame.everyImage.IMG_CHARACTER_HEAD[1][(control.personLast.rank+1)%3].getIconHeight(), null);
+		}
 	}
 	
 	class ButtonListener extends MouseAdapter implements ActionListener{
@@ -156,7 +191,7 @@ public class JPanelGame extends JPanel{
 		
 		@Override
 		public void mouseEntered(MouseEvent e){
-			if(i<4||i==8||i==9){
+			if(i<4||i>7){
 				buttons[i].setLocation(buttons[i].getLocation().x+2, buttons[i].getLocation().y-2);
 			}else if(commandNow!=2&&i<9){
 				control.personNow.setExample(i-4, true);
@@ -168,7 +203,7 @@ public class JPanelGame extends JPanel{
 		}
 		@Override
 		public void mouseExited(MouseEvent e){
-			if(i<4||i==8||i==9){
+			if(i<4||i>7){
 				buttons[i].setLocation(buttons[i].getLocation().x-2, buttons[i].getLocation().y+2);
 			}else if(commandNow!=2&&i<9){
 				control.personNow.setExample(i-4, false);
@@ -260,6 +295,9 @@ public class JPanelGame extends JPanel{
 				jps.setVisible(true);
 				jps.initialButtons();
 				break;
+			case 10:
+				removeButtons();
+				control.nextPer();
 			default:
 				break;
 			}

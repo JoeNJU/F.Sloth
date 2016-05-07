@@ -14,7 +14,7 @@ public class JPanelStop extends JPanel{
 	
 	private JMainFrame jMainFrame;
 	private JButton[] buttons = new JButton[4];
-	private Point[] points = new Point[]{new Point(150,300),new Point(300,100),new Point(500,100),new Point(700,100)};
+	private Point[] points = new Point[]{new Point(244,332),new Point(373,336),new Point(504,335),new Point(634,343)};
 
 	
 	public JPanelStop(JMainFrame jframe){

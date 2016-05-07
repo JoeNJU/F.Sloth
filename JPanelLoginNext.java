@@ -7,15 +7,12 @@ import javax.swing.*;
 public class JPanelLoginNext extends JPanel implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 492;
-	public static final int HIGHT = 441;
 	/*本类用于游戏首页的主按钮
 	 * frame必须用add方法
 	 */
 	
 	private JMainFrame jMainFrame;
 	private JButton[] buttons;
-	private boolean isRemoved = false;
 
 	
 	public JPanelLoginNext(JMainFrame jframe){

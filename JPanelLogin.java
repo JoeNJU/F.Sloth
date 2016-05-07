@@ -12,6 +12,7 @@ public class JPanelLogin extends JPanel implements Runnable{
 	 */
 	
 	private JMainFrame jMainFrame;
+	@SuppressWarnings("unused")
 	private JPanelLoginNext jPanelLoginNext;
 	private JButton[] buttons;//包括右上角的三个按钮，分别为静音，帮助，退出
 	private Point titlePoint = new Point(46,-341);
@@ -32,7 +33,7 @@ public class JPanelLogin extends JPanel implements Runnable{
 	}
 	
 	public void run() {
-		//46,94,940,341
+		//46,120,940,341
 		if(close){
 			while(this.titlePoint.y>-341){
 				this.titlePoint.y -= 8;
@@ -45,7 +46,7 @@ public class JPanelLogin extends JPanel implements Runnable{
 			}
 			close = false;
 		}else{
-			while(this.titlePoint.y<94){
+			while(this.titlePoint.y<120){
 				this.titlePoint.y += 8;
 				this.repaint();
 				try {
@@ -64,10 +65,8 @@ public class JPanelLogin extends JPanel implements Runnable{
 	}
 	
 	public void paintComponent(Graphics g){
-		g.setColor(Color.BLACK);
-		g.fillRect(0,0,JMainFrame.JFRAME_WIDTH, JMainFrame.JFRAME_HIGHT);
-		g.setColor(Color.green);
-		g.fillRect(titlePoint.x, titlePoint.y,940,341);
+		g.drawImage(jMainFrame.everyImage.IMG_LOGIN_BG,0, 0,null);
+		g.drawImage(jMainFrame.everyImage.IMG_LOGIN_TITLE,titlePoint.x, titlePoint.y,null);
 		//g.drawImage(jMainFrame.everyImage.IMG_LOGIN_TITLE, titlePoint.x, titlePoint.y,940,341,null);
 	
 	}
@@ -91,10 +90,7 @@ public class JPanelLogin extends JPanel implements Runnable{
 	public void start(){
 		jPanelLoginNext = new JPanelLoginNext(jMainFrame);
 		
-	}
-	
-	
-	
+	}	
 	
 	class ButtonListenerl extends MouseAdapter implements ActionListener{
 		int i;
@@ -118,6 +114,7 @@ public class JPanelLogin extends JPanel implements Runnable{
 			//buttons[i].setIcon(jMainFrame.everyImage.IMG_LOGIN_BUTTONS[i]);
 		}
 
+		@SuppressWarnings("unused")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			switch (i) {
