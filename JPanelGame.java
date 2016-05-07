@@ -1,15 +1,10 @@
 package ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import game.Control;
 import game.Person;
@@ -22,9 +17,11 @@ public class JPanelGame extends JPanel{
 	 */
 	
 	private JMainFrame jMainFrame;
-	private JButton[] buttons;
+	private JButton[] buttons = new JButton[10];
 	private Control control;
 	private int commandNow;
+	private JLabel label;
+	JPanelStop jps;
 	
 	
 	public JPanelGame(JMainFrame jframe){
@@ -36,14 +33,9 @@ public class JPanelGame extends JPanel{
 		this.setVisible(true);
 		jMainFrame.setDragable(this);
 		jMainFrame.setContentPane(this);
-		control = new Control(this);
-		//this.repaint();
-	}
-	
-	public void initialButtons(){
-		this.buttons=new JButton[]{new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton(),new JButton()};
-		//9个按钮分别为占领，骚扰，移动，隐现身，上，下，左，右，返回
-		for (int i = 0; i < 9; i++) {
+		jps = new JPanelStop(jMainFrame);
+		for (int i = 0; i < 4; i++) {
+			buttons[i] = new JButton();
 			buttons[i].setBorderPainted(false);
 			this.add(buttons[i]);
 			buttons[i].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[i]);
@@ -55,6 +47,28 @@ public class JPanelGame extends JPanel{
 			buttons[i].setRequestFocusEnabled(false);
 			buttons[i].setVisible(false);
 		} 
+		control = new Control(this);
+		//this.repaint();
+	}
+	
+	public void initialButtons(){
+		//9个按钮分别为占领，骚扰，移动，隐现身，上，下，左，右，返回
+		for (int i = 4; i < 10; i++) {
+			buttons[i] = new JButton();
+			buttons[i].setBorderPainted(false);
+			this.add(buttons[i]);
+			buttons[i].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[i]);
+			buttons[i].setBorderPainted(false);
+			buttons[i].setContentAreaFilled(false);
+			ButtonListener listener=new ButtonListener(i);
+			buttons[i].addMouseListener(listener);
+			buttons[i].addActionListener(listener);
+			buttons[i].setRequestFocusEnabled(false);
+			buttons[i].setVisible(false);
+		} 
+		buttons[9].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[10]);
+		buttons[9].setBounds(934,10,73,72);
+		buttons[9].setVisible(true);
 	}
 	
 	public void basicAdd(Person person){//添加基础选项，x和y为人物所在 格子坐标
@@ -67,7 +81,10 @@ public class JPanelGame extends JPanel{
 			if(person.getActivity()>1){
 				buttons[2].setBounds(points[1].x,points[1].y,40,40);
 				buttons[2].setVisible(true);
-			}			
+			}
+			if(control.blocks[person.location.x][person.location.y].hasPerson()){
+				buttons[3].setVisible(false);
+			}
 		}else if(person.getActivity()<4){
 			buttons[3].setIcon(jMainFrame.everyImage.IMG_GAME_BUTTONS[3]);
 			for(int i = 3;i>3-person.getActivity();i--){
@@ -82,6 +99,10 @@ public class JPanelGame extends JPanel{
 				buttons[i].setVisible(true);
 			}
 		}
+		if(person.inDanger()){
+			buttons[3].setVisible(false);
+		}
+		
 		this.repaint();
 	}
 	
@@ -98,14 +119,26 @@ public class JPanelGame extends JPanel{
 			buttons[i].setBounds(points[i-4].x,points[i-4].y,40,40);
 			buttons[i].setVisible(true);
 		}
-		if(control.personNow.location.x==0){
-			buttons[6].setVisible(false);
-		}else if(control.personNow.location.x==14){
-			buttons[7].setVisible(false);
-		}else if(control.personNow.location.y==0){
-			buttons[4].setVisible(false);
-		}else if(control.personNow.location.y==14){
-			buttons[5].setVisible(false);
+		if(commandNow==2){
+			if(control.personNow.location.x==0||(control.blocks[control.personNow.location.x-1][control.personNow.location.y].hasPerson()&&!control.personNow.isHide())){
+				buttons[6].setVisible(false);
+			}else if(control.personNow.location.x==14||(control.blocks[control.personNow.location.x+1][control.personNow.location.y].hasPerson()&&!control.personNow.isHide())){
+				buttons[7].setVisible(false);
+			}else if(control.personNow.location.y==0||(control.blocks[control.personNow.location.x][control.personNow.location.y-1].hasPerson()&&!control.personNow.isHide())){
+				buttons[4].setVisible(false);
+			}else if(control.personNow.location.y==14||(control.blocks[control.personNow.location.x][control.personNow.location.y+1].hasPerson()&&!control.personNow.isHide())){
+				buttons[5].setVisible(false);
+			}
+		}else{
+			if(control.personNow.location.x==0){
+				buttons[6].setVisible(false);
+			}else if(control.personNow.location.x==14){
+				buttons[7].setVisible(false);
+			}else if(control.personNow.location.y==0){
+				buttons[4].setVisible(false);
+			}else if(control.personNow.location.y==14){
+				buttons[5].setVisible(false);
+			}
 		}
 		
 	}
@@ -123,9 +156,9 @@ public class JPanelGame extends JPanel{
 		
 		@Override
 		public void mouseEntered(MouseEvent e){
-			if(i<4||i==8){
+			if(i<4||i==8||i==9){
 				buttons[i].setLocation(buttons[i].getLocation().x+2, buttons[i].getLocation().y-2);
-			}else if(commandNow!=2){
+			}else if(commandNow!=2&&i<9){
 				control.personNow.setExample(i-4, true);
 				control.repaintAll();
 			}
@@ -135,9 +168,9 @@ public class JPanelGame extends JPanel{
 		}
 		@Override
 		public void mouseExited(MouseEvent e){
-			if(i<4||i==8){
+			if(i<4||i==8||i==9){
 				buttons[i].setLocation(buttons[i].getLocation().x-2, buttons[i].getLocation().y+2);
-			}else if(commandNow!=2){
+			}else if(commandNow!=2&&i<9){
 				control.personNow.setExample(i-4, false);
 				control.repaintAll();
 			}
@@ -148,18 +181,19 @@ public class JPanelGame extends JPanel{
 			switch (i) {
 			case 0://占领
 				removeButtons();
-				directAdd(control.personNow,i);
 				commandNow = i;
+				directAdd(control.personNow,i);
+				
 				break;
 			case 1://骚扰
 				removeButtons();
-				directAdd(control.personNow,i);
 				commandNow = i;
+				directAdd(control.personNow,i);
 				break;
 			case 2://移动
 				removeButtons();
-				directAdd(control.personNow,i);
 				commandNow = i;
+				directAdd(control.personNow,i);
 				break;
 			case 3://隐身或现身
 				removeButtons();
@@ -221,6 +255,10 @@ public class JPanelGame extends JPanel{
 			case 8://返回
 				removeButtons();
 				control.refresh();
+				break;
+			case 9:
+				jps.setVisible(true);
+				jps.initialButtons();
 				break;
 			default:
 				break;
