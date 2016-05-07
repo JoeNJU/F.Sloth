@@ -62,6 +62,7 @@ public class Block extends JPanel{
 				Person person = control.people[i][j];
 				if(!person.isHide()&&person.family!=family&&person.location.x==location.x&&person.location.y==location.y){
 					person.stop();
+					person.hit();
 				}
 			}
 		}

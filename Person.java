@@ -10,8 +10,8 @@ public class Person extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	//String name;
-	int family;//0号家庭于右下角先走,0号家是小女孩
-    int rank;//爸爸为0，妈妈为1，宝宝为2
+	public int family;//0号家庭于右下角先走,0号家是小女孩
+    public int rank;//爸爸为0，妈妈为1，宝宝为2
     private ImageIcon[] IMG_FATHER = new ImageIcon[]{new ImageIcon("graphics/character/10.png"),new ImageIcon("graphics/character/11.png"),new ImageIcon("graphics/character/12.png"),new ImageIcon("graphics/character/13.png")};
 	private ImageIcon[] IMG_MOTHER = new ImageIcon[]{new ImageIcon("graphics/character/20.png"),new ImageIcon("graphics/character/21.png"),new ImageIcon("graphics/character/22.png"),new ImageIcon("graphics/character/23.png")};
 	private ImageIcon[] IMG_GIRL = new ImageIcon[]{new ImageIcon("graphics/character/30.png"),new ImageIcon("graphics/character/31.png"),new ImageIcon("graphics/character/32.png"),new ImageIcon("graphics/character/33.png")};
@@ -59,15 +59,6 @@ public class Person extends JPanel{
     	
 
 		if(hidden){
-			if(rank==0){
-				g.drawImage(IMG_FATHER[direction].getImage(), 0, 0, null);
-			}else if(rank==1){
-				g.drawImage(IMG_MOTHER[direction].getImage(), 0, 0, null);
-			}else if(rank==2&&family==0){
-				g.drawImage(IMG_GIRL[direction].getImage(), 0, 0, null);
-			}else{
-				g.drawImage(IMG_BOY[direction].getImage(), 0, 0, null);
-			}
 			//隐身图案
 		}else{
 			if(rank==0){
@@ -87,7 +78,7 @@ public class Person extends JPanel{
     private void initial(){
     		
     	if(family == 0){
-    		location.x = 14;
+    		location.x = 7;
     		switch(rank){
         	case 0:
         		location.y = 12;
@@ -102,7 +93,7 @@ public class Person extends JPanel{
         		break;
         	}
     	}else{
-    		location.x = 0;
+    		location.x = 5;
     		switch(rank){
         	case 0:
         		location.y = 2;

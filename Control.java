@@ -7,16 +7,36 @@ import ui.JPanelGame;
 public class Control {
 	int family = 0,rank = 0;
 	public Person personNow; 
-	private Person personLast;
+	public Person personLast;
 	public Block[][] blocks = new Block[15][15];  
 	public Person[][] people = new Person[2][3]; 
 	private JPanelGame game;
-	private int count = 1;//记录回合数
+	private int turn = 1;//记录回合数
+	private int countLeft = 0;
+	private int countRight = 0;
+	private int blockLeft = 0;
+	private int blockRight = 0;
 	
 	public Control(JPanelGame game){
 		this.game = game;
 		initial();
 	}
+	
+	public void countCal(){
+		for(int i = 0;i<15;i++){
+			for(int j = 0;j<15;j++){
+				if(blocks[i][j].family==0){
+					blockRight++;
+				}else if(blocks[i][j].family==1){
+					blockLeft++;
+				}
+			}
+		}
+		
+		game.countText.setText("Total 120 turns, now "+turn+" turns. Left family "+blockLeft+" blocks. Right family "+blockRight+" blocks.");	
+	}
+	
+	
 	void initial(){   	
 		
 		for(int i = 0;i<2;i++){
@@ -82,7 +102,7 @@ public class Control {
 	}
 	
 	public boolean isFinish(){
-		if(count>=60){//限定回合数
+		if(turn>=60){//限定回合数
 			return true;
 		}
 		for(int i = 0;i<15;i++){
@@ -97,7 +117,8 @@ public class Control {
 	}
 	
 	public void nextPer(){
-		count++;
+		turn++;
+		countCal();
 		personNow.reactive();
 		if(personLast.family==family){
 			family = 1-family;		
@@ -113,6 +134,7 @@ public class Control {
 			nextPer();
 		}else{
 			refresh();
+			game.addSkip();
 		}
 		
 	}
