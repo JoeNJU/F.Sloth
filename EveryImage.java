@@ -22,5 +22,10 @@ public class EveryImage {
 	public ImageIcon[] IMG_GAME_BUTTONS=new ImageIcon[]{new ImageIcon("graphics/game/occupy.png"),new ImageIcon("graphics/game/disturb.png"),new ImageIcon("graphics/game/move.png"),new ImageIcon("graphics/game/disappear.png"),new ImageIcon("graphics/game/up.png"),new ImageIcon("graphics/game/down.png"),new ImageIcon("graphics/game/left.png"),new ImageIcon("graphics/game/right.png"),new ImageIcon("graphics/game/back.png"),new ImageIcon("graphics/game/appear.png"),new ImageIcon("graphics/game/stop.png")};
 	public Image IMG_STOP_BG = new ImageIcon("graphics/bg/stopbg.png").getImage();
 	public ImageIcon[] IMG_STOP_BUTTONS = new ImageIcon[]{new ImageIcon("graphics/stop/volumeOn.png"),new ImageIcon("graphics/stop/restart.png"),new ImageIcon("graphics/stop/menu.png"),new ImageIcon("graphics/stop/continue.png"),new ImageIcon("graphics/stop/volumeOff.png")};
-
+	public ImageIcon[] IMG_ACTIVITY_RIGHT = new ImageIcon[]{new ImageIcon("graphics/game/11.png"),new ImageIcon("graphics/game/12.png"),new ImageIcon("graphics/game/13.png"),new ImageIcon("graphics/game/14.png"),new ImageIcon("graphics/game/15.png"),new ImageIcon("graphics/game/16.png"),new ImageIcon("graphics/game/17.png")};
+	public ImageIcon[] IMG_ACTIVITY_LEFT = new ImageIcon[]{new ImageIcon("graphics/game/21.png"),new ImageIcon("graphics/game/22.png"),new ImageIcon("graphics/game/23.png"),new ImageIcon("graphics/game/24.png"),new ImageIcon("graphics/game/25.png"),new ImageIcon("graphics/game/26.png"),new ImageIcon("graphics/game/27.png")};
+	public ImageIcon[][] IMG_CHARACTER_HEAD = new ImageIcon[][]{{new ImageIcon("graphics/character/14.png"),new ImageIcon("graphics/character/24.png"),new ImageIcon("graphics/character/34.png")},{new ImageIcon("graphics/character/44.png"),new ImageIcon("graphics/character/54.png"),new ImageIcon("graphics/character/64.png")}};
+	public ImageIcon IMG_SKIP_BUTTON = new ImageIcon("graphics/game/skip.png");
+	
+	
 }
