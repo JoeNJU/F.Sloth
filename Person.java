@@ -78,7 +78,7 @@ public class Person extends JPanel{
     private void initial(){
     		
     	if(family == 0){
-    		location.x = 7;
+    		location.x = 14;
     		switch(rank){
         	case 0:
         		location.y = 12;
@@ -93,7 +93,7 @@ public class Person extends JPanel{
         		break;
         	}
     	}else{
-    		location.x = 5;
+    		location.x = 0;
     		switch(rank){
         	case 0:
         		location.y = 2;
