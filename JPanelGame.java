@@ -21,7 +21,7 @@ public class JPanelGame extends JPanel{
 	private JButton[] buttons = new JButton[11];
 	private Control control;
 	private int commandNow;
-	public JTextField countText;
+	public JTextArea countText;
 	private JPanelStop jps;
 	
 	
@@ -57,13 +57,15 @@ public class JPanelGame extends JPanel{
 	}
 	
 	public void initialText(){
-		countText = new JTextField(100);
+		countText = new JTextArea(3,10);
+		countText.setLineWrap(true);
+		countText.setWrapStyleWord(true);
 		countText.setBorder(null);
 		countText.setOpaque(false);
 		Font textFont = new Font("serif",Font.BOLD,30);
 		countText.setFont(textFont);
 		add(countText);
-		countText.setBounds(0, 0, 1024, 40);
+		countText.setBounds(0, 0, 400, 120);
 		countText.setText("Total 120 turns, now 1 turn");		
 		countText.setFocusable(false);
 		
